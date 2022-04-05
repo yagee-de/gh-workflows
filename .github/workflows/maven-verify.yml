@@ -76,13 +76,13 @@ on:
       ff-goal:
         description: The Maven goal used by fail-fast-build job
         required: false
-        default: '-P run-its verify'
+        default: '-T1.0C -P run-its verify'
         type: string
 
       ff-site-goal:
         description: The Maven goal used by fail-fast-build job to build site
         required: false
-        default: '-DskipTests -P reporting site site:stage'
+        default: '-T1.0C -DskipTests -P reporting site site:stage'
         type: string
 
       ff-timeout-minutes:
@@ -94,13 +94,13 @@ on:
       verify-goal:
         description: The Maven goal used by verfy jobs
         required: false
-        default: '-P run-its verify'
+        default: '-T1.0C -P run-its verify'
         type: string
 
       verify-site-goal:
         description: The Maven goal used by verfy jobs to build site
         required: false
-        default: '-DskipTests -P reporting site'
+        default: '-T1.0C -DskipTests -P reporting site'
         type: string
 
       verify-fail-fast:
@@ -158,6 +158,7 @@ jobs:
         run: ./mvnw --errors --batch-mode --show-version ${{ inputs.maven_args }} ${{ inputs.ff-goal }}
 
       - name: Build Maven Site
+        if: inputs.ff-site-goal != ''
         run: ./mvnw --errors --batch-mode --show-version ${{ inputs.maven_args }} ${{ inputs.ff-site-goal }}
 
       - name: Save Maven cache
@@ -166,6 +167,7 @@ jobs:
           step: save
 
       - name: Upload Maven Site
+        if: inputs.ff-site-goal != ''
         uses: actions/upload-artifact@v3
         with:
           name: ${{ github.run_number }}-site-${{ inputs.ff-os }}-${{ inputs.ff-jdk }}-${{ inputs.ff-jdk-distribution }}
