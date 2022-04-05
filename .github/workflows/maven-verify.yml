@@ -76,13 +76,13 @@ on:
       ff-goal:
         description: The Maven goal used by fail-fast-build job
         required: false
-        default: '-T1.0C -P run-its verify'
+        default: '-T 1C -P run-its verify'
         type: string
 
       ff-site-goal:
         description: The Maven goal used by fail-fast-build job to build site
         required: false
-        default: '-T1.0C -DskipTests -P reporting site site:stage'
+        default: '-T 1C -DskipTests -P reporting site site:stage'
         type: string
 
       ff-timeout-minutes:
@@ -94,13 +94,13 @@ on:
       verify-goal:
         description: The Maven goal used by verfy jobs
         required: false
-        default: '-T1.0C -P run-its verify'
+        default: '-T 1C -P run-its verify'
         type: string
 
       verify-site-goal:
         description: The Maven goal used by verfy jobs to build site
         required: false
-        default: '-T1.0C -DskipTests -P reporting site'
+        default: '-T 1C -DskipTests -P reporting site'
         type: string
 
       verify-fail-fast:
