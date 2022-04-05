@@ -234,6 +234,7 @@ jobs:
         run: mvn --errors --batch-mode --show-version wrapper:wrapper "-Dmaven=${{ inputs.maven_version }}"
 
       - name: Restore Maven cache
+        if: steps.should-run.conclusion == 'success'
         uses: skjolber/maven-cache-github-action@v1
         with:
           step: restore
